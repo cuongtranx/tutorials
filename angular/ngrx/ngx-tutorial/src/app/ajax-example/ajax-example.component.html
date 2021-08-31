@@ -1,0 +1,9 @@
+<div>
+  <button (click)="onClickFetchMovies()">Fetch Movies</button>
+</div>
+<div>
+  <ul>
+    <li>{{ (movie$ | async).title }}</li>
+    <!-- <li>{{ let movie of movie$ | async }}</li> -->
+  </ul>
+</div>

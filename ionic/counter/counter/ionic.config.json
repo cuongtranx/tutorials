@@ -1,0 +1,7 @@
+{
+  "name": "counter",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

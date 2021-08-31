@@ -1,0 +1,7 @@
+{
+  "name": "custom-cordova-plugin",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
