@@ -8,28 +8,61 @@
 import SwiftUI
 
 struct ContentView: View {
+    var emojis = ["✈️", "🚗", "📸", "🛵", "🚙", "🏎", "🏍", "🚜", "🛩", "⛴", "🚊", "🚄", "🚁", "🛴"]
+    @State var emojiCount = 4
+    
     var body: some View {
-        HStack {
-            CardView(isFaceUp: true)
-            CardView(isFaceUp: false)
-            CardView(isFaceUp: false)
-            CardView(isFaceUp: true)
+        VStack{
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 125))]) {
+                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
+                        CardView(content: emoji, isFaceUp: true).aspectRatio(2/3, contentMode: .fit)
+                    }
+                }
+                .foregroundColor(.blue)
+            }
+            Spacer()
+            HStack {
+                remove.foregroundColor(.red)
+                Spacer()
+                add.foregroundColor(.red)
+            }
         }
-        .padding()
-        .foregroundColor(.red)
+        .padding(.horizontal)
+    }
+    
+    var remove: some View {
+        Button(action: {
+            if (emojiCount > 1) {
+                emojiCount -= 1
+            }
+        }, label: {
+            Image(systemName: "minus.circle")
+        })
+    }
+    
+    var add: some View {
+        Button(action: {
+            if (emojiCount < emojis.count) {
+                emojiCount += 1
+            }
+        }, label: {
+            Image(systemName: "plus.circle")
+        })
     }
 }
 
 struct CardView: View {
+    var content: String
     @State var isFaceUp: Bool = false
-    var shape = RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+    let shape = RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
 
     var body: some View{
         ZStack {
             if (isFaceUp) {
                 shape.fill().foregroundColor(.white)
-                shape.stroke(lineWidth: 3.0)
-                Text("🚗").font(.largeTitle)
+                shape.strokeBorder(lineWidth: 3.0)
+                Text(content).font(.largeTitle)
             } else {
                 shape.fill()
             }
